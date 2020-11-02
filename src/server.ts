@@ -16,16 +16,16 @@ import fs from 'fs';
   
   // Root Endpoint
   
-  app.get( "/", async ( req, res ) => {
+  app.get( "/", async ( req:express.Request, res:express.Response ) => {
     res.send("try GET /filteredimage?image_url={{}}");
     
   } );
 
   // displayed image endpoint -- filteredimage?image_url={{}}
-  app.get( "/filteredimage/", async ( req, res ) => {
-    const image_url:string = req.query.image_url;
+  app.get( "/filteredimage/", async ( req: express.Request, res: express.Response ) => {
+    const image_url: string = req.query.image_url;
     if(image_url){
-      const path = await filterImageFromURL(image_url);
+      const path: string = await filterImageFromURL(image_url);
       console.log(path);
       res.sendFile(path);
       res.on('finish', () => deleteLocalFiles([path]));
